@@ -74,6 +74,17 @@ Game.Play.prototype = {
 	    player.frame = 2;
 	}
 
+	if (game.input.activePointer.isDown) {
+	    if (game.input.x < (w / 3)) {
+		player.body.velocity.x = -150;
+		player.frame = 0;
+	    }
+	    else if (game.input.x > (w * 2 / 3)) {
+		player.body.velocity.x = 150;
+		player.frame = 2;
+	    }
+	}
+
 	if (player.body.velocity.y != platformVelocity) {
 	    player.inAir = true;
 	}
