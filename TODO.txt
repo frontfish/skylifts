@@ -1,0 +1,5 @@
+- scenes
+- music
+- sound effects
+- animations (move left/right, land)
+- platform generation
