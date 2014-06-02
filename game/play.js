@@ -35,9 +35,10 @@ Game.Play.prototype = {
 	this.createPlatform(4, -9, 4);
 
 	player = game.add.sprite(50, h - 180, 'player');
-	player.anchor.setTo(0.5, 0.5);
+	player.anchor.setTo(0.5, 1);
 	game.physics.arcade.enable(player);
 	player.body.gravity.y = 1000;
+	player.inAir = true;
 
 	score = 0;	
 	scoreText = game.add.text(10, 10, 'score: ' + score, { font: '20px Arial', fill: '#222222' });
@@ -62,6 +63,12 @@ Game.Play.prototype = {
 	    this.jumpCount++;
 	}
 
+	if (player.body.velocity.y != platformVelocity) {
+	    player.inAir = true;
+	}
+
+	platforms.setAll('body.velocity.y', platformVelocity);
+
 	scoreText.text = 'score: ' + score;
     },
 
@@ -69,7 +76,6 @@ Game.Play.prototype = {
 	platform = platforms.create(x * 20, h - y * 20, 'platform');
 	platform.scale.setTo(width * 20, 1);
 	platform.body.immovable = true;
-	platform.body.velocity.y = platformVelocity;
 	platform.untouched = true;
     },
 
@@ -81,9 +87,16 @@ Game.Play.prototype = {
 	if (platform.untouched) {
 	    score++;
 	    platform.untouched = false;
+	    if (score % 5 == 0) {
+		platformVelocity *= 1.1;
+	    }
+	}
+	if (player.inAir && player.body.touching.down) {
+	    player.inAir = false;
+	    game.add.tween(player.scale).to({x: 1, y: 0.8}, 50, null, true, 0, false, false).to({x: 1, y: 1}, 200, null, true, 0, false, false);
 	}
     },
-    
+
     endGame: function () {
 	game.state.start('Play');
     }

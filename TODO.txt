@@ -1,6 +1,5 @@
 - scenes
 - music
 - sound effects
-- animations (move left/right, land)
+- animations (move left/right)
 - platform generation
-- increase platform speed as score increases
