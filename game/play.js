@@ -70,11 +70,6 @@ Game.Play.prototype = {
 	    player.body.velocity.x = 150;
 	}
 
-	if (cursors.up.isDown && player.body.touching.down) {
-	    player.body.velocity.y = -375;
-	    this.jumpCount++;
-	}
-
 	if (player.body.velocity.y != platformVelocity) {
 	    player.inAir = true;
 	}
