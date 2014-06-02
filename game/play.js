@@ -1,6 +1,6 @@
 Game.Play = function (game) { };
 
-var platformVelocity = -100;
+var platformVelocity;
 var score;
 
 Game.Play.prototype = {
@@ -39,6 +39,8 @@ Game.Play.prototype = {
 	game.physics.arcade.enable(player);
 	player.body.gravity.y = 1000;
 	player.inAir = true;
+
+	platformVelocity = -100;
 
 	score = 0;	
 	scoreText = game.add.text(10, 10, 'score: ' + score, { font: '20px Arial', fill: '#222222' });
