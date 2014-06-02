@@ -1,2 +1,6 @@
-- scenes
+- loading screen
+- menu screen
+  - sound toggle
+- pause
 - sound effects
+- mobile responsiveness
