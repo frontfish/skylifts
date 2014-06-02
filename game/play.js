@@ -35,7 +35,13 @@ Game.Play.prototype = {
 	platforms = game.add.group();
 	platforms.enableBody = true;
 
-	marker = 1;
+	marker = Math.floor((playerStart - 30) / 20);
+	if (marker < 0) {
+	    marker = 0;
+	}
+	if (marker > 26) {
+	    marker = 26;
+	}
 	var y = 0;
 	this.createPlatform(marker, y, 4);
 	for (var i = 0; i < num_platforms - 1; i++) {
@@ -43,7 +49,7 @@ Game.Play.prototype = {
 	    this.generatePlatform(y);
 	}
 
-	player = game.add.sprite(50, h - 180, 'player');
+	player = game.add.sprite(playerStart, h - 20, 'player');
 	player.anchor.setTo(0.5, 1);
 	game.physics.arcade.enable(player);
 	player.body.gravity.y = 1000;

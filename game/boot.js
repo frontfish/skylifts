@@ -4,6 +4,7 @@ Game = {};
 var w = 600;
 var h = 400;
 var bestScore = 0;
+var playerStart;
 
 Game.Boot = function (game) { };
 

@@ -6,22 +6,60 @@ Game.Menu.prototype = {
 	
 	cursors = game.input.keyboard.createCursorKeys();
 
+
+	platforms = game.add.group()
+	platforms.enableBody = true;
+	ground = platforms.create(0, h - 20, 'platform');
+	ground.scale.setTo(w, 1);
+	ground.body.immovable = true;
+
 	player = game.add.sprite(50, h - 180, 'player');
 	player.anchor.setTo(0.5, 1);
 	game.physics.arcade.enable(player);
 	player.body.gravity.y = 1000;
 	player.inAir = true;
 	player.frame = 1;
-	player.collideWorldBounds = true;
+	player.body.collideWorldBounds = true;
 
     },
 
     update: function () {
-	// upon some input:
-	if (false) {
-	    music = game.add.sound('music');
-	    music.play('', 0.4, 0.5, true, false);
-	    game.state.start('Play');
+	game.physics.arcade.collide(player, platforms, this.hitPlatform, null, this);
+
+	player.frame = 1;
+	player.body.velocity.x = 0;
+	if (cursors.left.isDown) {
+	    player.body.velocity.x = -150;
+	    player.frame = 0;
 	}
+	else if (cursors.right.isDown) {
+	    player.body.velocity.x = 150;
+	    player.frame = 2;
+	}
+
+	if (cursors.up.isDown) {
+	    this.startGame();
+	}
+
+	if (game.input.activePointer.isDown) {
+	    if (game.input.x < (w / 3)) {
+		player.body.velocity.x = -150;
+		player.frame = 0;
+	    }
+	    else if (game.input.x > (w * 2 / 3)) {
+		player.body.velocity.x = 150;
+		player.frame = 2;
+	    }
+	    else {
+		this.startGame();
+	    }
+	}
+    },
+    
+    startGame: function () {
+	playerStart = player.x;
+	music = game.add.sound('music');
+	music.play('', 0.4, 0.5, true, false);
+	game.state.start('Play');
     }
 };
