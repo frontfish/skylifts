@@ -39,7 +39,7 @@ Game.Play.prototype = {
 	var y = 0;
 	this.createPlatform(marker, y, 4);
 	for (var i = 0; i < num_platforms - 1; i++) {
-	    y = y - (Math.floor(Math.random() * 5) + 3);
+	    y = y - (Math.floor(Math.random() * 4) + 4);
 	    this.generatePlatform(y);
 	}
 
@@ -48,6 +48,7 @@ Game.Play.prototype = {
 	game.physics.arcade.enable(player);
 	player.body.gravity.y = 1000;
 	player.inAir = true;
+	player.frame = 1;
 
 	platformVelocity = -100;
 
@@ -62,12 +63,15 @@ Game.Play.prototype = {
 	game.physics.arcade.overlap(topKill, platforms, this.deletePlatform, null, this);
 	game.physics.arcade.collide(player, platforms, this.hitPlatform, null, this);
 
+	player.frame = 1;
 	player.body.velocity.x = 0;
 	if (cursors.left.isDown) {
 	    player.body.velocity.x = -150;
+	    player.frame = 0;
 	}
 	else if (cursors.right.isDown) {
 	    player.body.velocity.x = 150;
+	    player.frame = 2;
 	}
 
 	if (player.body.velocity.y != platformVelocity) {

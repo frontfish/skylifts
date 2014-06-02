@@ -1,3 +1,2 @@
 - scenes
 - sound effects
-- animations (move left/right)

@@ -7,9 +7,9 @@ Game.Load.prototype = {
 
 	// load everything
 	game.load.image('platform', 'assets/img/platform.png');
-	game.load.image('player', 'assets/img/player.png');
+	game.load.spritesheet('player', 'assets/img/player.png', 20, 18, 3);
 
-	game.load.audio('music', 'assets/aud/Electrodoodle.mp3');
+	game.load.audio('music', 'assets/aud/Half\ Bit.mp3');
     },
 
     create: function () {
