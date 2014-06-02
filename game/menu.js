@@ -13,13 +13,22 @@ Game.Menu.prototype = {
 	ground.scale.setTo(w, 1);
 	ground.body.immovable = true;
 
-	player = game.add.sprite(50, h - 180, 'player');
+	player = game.add.sprite(w / 2, h - 40, 'player');
 	player.anchor.setTo(0.5, 1);
 	game.physics.arcade.enable(player);
 	player.body.gravity.y = 1000;
 	player.inAir = true;
 	player.frame = 1;
 	player.body.collideWorldBounds = true;
+
+	title = game.add.text(w / 2, 5, 'Skylifts', { font: '100px Arial', fill: '#aaaaaa' });
+	title.anchor.setTo(0.5, 0);
+
+	by = game.add.text(w / 2, 118, 'by Christopher Hinstorff', { font: '24px Arial', fill: '#aaaaaa' });
+	by.anchor.setTo(0.5, 0);
+
+	attr = game.add.text(w, h - 18, 'music: "Half Bit" by Kevin Macleod (incompetech.com) ', { font: '12px Arial', fill: '#aaccff' });
+	attr.anchor.setTo(1, 0);
 
     },
 

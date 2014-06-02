@@ -59,8 +59,8 @@ Game.Play.prototype = {
 	platformVelocity = -100;
 
 	score = 0;	
-	scoreText = game.add.text(10, 10, 'score: ' + score, { font: '20px Arial', fill: '#222222' });
-	bestText = game.add.text(10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#222222' });
+	scoreText = game.add.text(10, 10, 'score: ' + score, { font: '20px Arial', fill: '#aaa' });
+	bestText = game.add.text(10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#aaa' });
     },
 
     update: function () {

@@ -10,6 +10,13 @@ Game.Boot = function (game) { };
 
 Game.Boot.prototype = {
     preload: function () {
+	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	this.scale.minWidth = 480;
+	this.scale.minHeight = 320;
+	this.scale.maxWidth = 1152;
+	this.scale.maxHeight = 768;
+	this.scale.setScreenSize(true);
+
 	game.load.image('loadingBar', 'assets/img/loading_bar.png');
 	game.load.image('loadingFrame', 'assets/img/loading_frame.png');
     },
