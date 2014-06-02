@@ -5,7 +5,7 @@ var score;
 var startPlatform;
 var marker;
 var num_platforms = 4;
-var variance = 9;
+var variance = 8;
 var increase = 1.01;
 
 Game.Play.prototype = {
@@ -90,7 +90,7 @@ Game.Play.prototype = {
     generatePlatform: function (y) {
 	var x = -1;
 	while (x < 0 || x > (w / 20 - 4)) {
-	    x = 5 - Math.floor(Math.random() * (2 * variance + 1)) + marker;
+	    x = variance - Math.floor(Math.random() * (2 * variance + 1)) + marker;
 	}
 	this.createPlatform(x, y, 4);
 	marker = x;
