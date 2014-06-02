@@ -3,3 +3,4 @@
 - sound effects
 - animations (move left/right, land)
 - platform generation
+- increase platform speed as score increases
