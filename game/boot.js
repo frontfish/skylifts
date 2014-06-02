@@ -9,7 +9,8 @@ Game.Boot = function (game) { };
 
 Game.Boot.prototype = {
     preload: function () {
-	// load images for loading screen
+	game.load.image('loadingBar', 'assets/img/loading_bar.png');
+	game.load.image('loadingFrame', 'assets/img/loading_frame.png');
     },
 
     create: function () {
