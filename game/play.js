@@ -2,6 +2,11 @@ Game.Play = function (game) { };
 
 var platformVelocity;
 var score;
+var startPlatform;
+var marker;
+var num_platforms = 4;
+var variance = 9;
+var increase = 1.01;
 
 Game.Play.prototype = {
     create: function () {
@@ -30,9 +35,13 @@ Game.Play.prototype = {
 	platforms = game.add.group();
 	platforms.enableBody = true;
 
-	this.createPlatform(1, 0, 4);
-	this.createPlatform(7, -3, 4);
-	this.createPlatform(4, -9, 4);
+	marker = 1;
+	var y = 0;
+	this.createPlatform(marker, y, 4);
+	for (var i = 0; i < num_platforms - 1; i++) {
+	    y = y - (Math.floor(Math.random() * 5) + 3);
+	    this.generatePlatform(y);
+	}
 
 	player = game.add.sprite(50, h - 180, 'player');
 	player.anchor.setTo(0.5, 1);
@@ -44,6 +53,7 @@ Game.Play.prototype = {
 
 	score = 0;	
 	scoreText = game.add.text(10, 10, 'score: ' + score, { font: '20px Arial', fill: '#222222' });
+	bestText = game.add.text(10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#222222' });
     },
 
     update: function () {
@@ -72,6 +82,7 @@ Game.Play.prototype = {
 	platforms.setAll('body.velocity.y', platformVelocity);
 
 	scoreText.text = 'score: ' + score;
+	bestText.text = 'best: ' + bestScore;
     },
 
     createPlatform: function (x, y, width) {
@@ -81,17 +92,30 @@ Game.Play.prototype = {
 	platform.untouched = true;
     },
 
+    generatePlatform: function (y) {
+	var x = -1;
+	while (x < 0 || x > (w / 20 - 4)) {
+	    x = 5 - Math.floor(Math.random() * (2 * variance + 1)) + marker;
+	}
+	this.createPlatform(x, y, 4);
+	marker = x;
+    },
+
     deletePlatform: function (topKill, platform) {
 	platform.destroy();
+	this.generatePlatform(0);
     },
 
     hitPlatform: function (player, platform) {
 	if (platform.untouched) {
 	    score++;
 	    platform.untouched = false;
-	    if (score % 5 == 0) {
-		platformVelocity *= 1.1;
+
+	    if (score > bestScore) {
+		bestScore = score;
 	    }
+
+	    platformVelocity *= increase;
 	}
 	if (player.inAir && player.body.touching.down) {
 	    player.inAir = false;

@@ -3,6 +3,7 @@ Game = {};
 // initialize variables
 var w = 600;
 var h = 400;
+var bestScore = 0;
 
 Game.Boot = function (game) { };
 

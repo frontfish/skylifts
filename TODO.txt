@@ -2,4 +2,3 @@
 - music
 - sound effects
 - animations (move left/right)
-- platform generation
