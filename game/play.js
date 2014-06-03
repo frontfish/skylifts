@@ -6,7 +6,7 @@ var startPlatform;
 var marker;
 var num_platforms = 4;
 var variance = 8;
-var increase = 1.009;
+var increase = 1.008;
 
 Game.Play.prototype = {
     create: function () {
