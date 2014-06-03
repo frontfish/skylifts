@@ -71,24 +71,12 @@ Game.Play.prototype = {
 
 	player.frame = 1;
 	player.body.velocity.x = 0;
-	if (cursors.left.isDown) {
-	    player.body.velocity.x = -150;
-	    player.frame = 0;
+	
+	if (game.device.desktop) {
+	    this.desktopControls();
 	}
-	else if (cursors.right.isDown) {
-	    player.body.velocity.x = 150;
-	    player.frame = 2;
-	}
-
-	if (game.input.activePointer.isDown) {
-	    if (game.input.x < (w / 3)) {
-		player.body.velocity.x = -150;
-		player.frame = 0;
-	    }
-	    else if (game.input.x > (w * 2 / 3)) {
-		player.body.velocity.x = 150;
-		player.frame = 2;
-	    }
+	else {
+	    this.mobileControls();
 	}
 
 	if (player.body.velocity.y != platformVelocity) {
@@ -136,6 +124,30 @@ Game.Play.prototype = {
 	if (player.inAir && player.body.touching.down) {
 	    player.inAir = false;
 	    game.add.tween(player.scale).to({x: 1, y: 0.8}, 50, null, true, 0, false, false).to({x: 1, y: 1}, 200, null, true, 0, false, false);
+	}
+    },
+    
+    desktopControls: function () {
+	if (cursors.left.isDown) {
+	    player.body.velocity.x = -150;
+	    player.frame = 0;
+	}
+	else if (cursors.right.isDown) {
+	    player.body.velocity.x = 150;
+	    player.frame = 2;
+	}
+    },
+
+    mobileControls: function () {
+	if (game.input.activePointer.isDown) {
+	    if (game.input.x < (w / 3)) {
+		player.body.velocity.x = -150;
+		player.frame = 0;
+	    }
+	    else if (game.input.x > (w * 2 / 3)) {
+		player.body.velocity.x = 150;
+		player.frame = 2;
+	    }
 	}
     },
 

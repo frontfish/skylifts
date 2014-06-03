@@ -36,6 +36,15 @@ Game.Menu.prototype = {
 
 	player.frame = 1;
 	player.body.velocity.x = 0;
+	if (game.device.desktop) {
+	    this.desktopControls();
+	}
+	else {
+	    this.mobileControls();
+	}
+    },
+
+    desktopControls: function () {
 	if (cursors.left.isDown) {
 	    player.body.velocity.x = -150;
 	    player.frame = 0;
@@ -48,7 +57,9 @@ Game.Menu.prototype = {
 	if (cursors.up.isDown) {
 	    this.startGame();
 	}
+    },
 
+    mobileControls: function () {
 	if (game.input.activePointer.isDown) {
 	    if (game.input.x < (w / 3)) {
 		player.body.velocity.x = -150;
@@ -63,6 +74,7 @@ Game.Menu.prototype = {
 	    }
 	}
     },
+
     
     startGame: function () {
 	playerStart = player.x;
