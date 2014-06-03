@@ -1,5 +1,8 @@
 - menu screen
   - sound toggle
+  - instructions
+  - controls
 - pause
 - sound effects
 - mobile responsiveness
+- fix platform generation so that there are no overlaps
