@@ -5,6 +5,7 @@ var w = 600;
 var h = 400;
 var bestScore = 0;
 var playerStart;
+var orientated = false;
 
 Game.Boot = function (game) { };
 
@@ -13,7 +14,7 @@ Game.Boot.prototype = {
 	game.load.image('loadingBar', 'assets/img/loading_bar.png');
 	game.load.image('loadingFrame', 'assets/img/loading_frame.png');
     },
-
+    
     create: function () {
 	if (!game.device.desktop) {
 	    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -28,6 +29,7 @@ Game.Boot.prototype = {
             this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
             this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
             this.scale.setScreenSize(true);
+	    this.scale.startFullScreen(true);
 	}
 
 	game.state.start('Load');
@@ -41,18 +43,12 @@ Game.Boot.prototype = {
     },
 
     enterIncorrectOrientation: function () {
-
-        BasicGame.orientated = false;
-
+        orientated = false;
         document.getElementById('orientation').style.display = 'block';
-
     },
 
     leaveIncorrectOrientation: function () {
-
-        BasicGame.orientated = true;
-
+        orientated = true;
         document.getElementById('orientation').style.display = 'none';
-
     }
 };
