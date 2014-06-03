@@ -140,6 +140,7 @@ Game.Play.prototype = {
     },
 
     endGame: function () {
-	game.state.start('Play');
+	playerStart = player.x;
+	game.state.start('Menu');
     }
 };

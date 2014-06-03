@@ -6,14 +6,13 @@ Game.Menu.prototype = {
 	
 	cursors = game.input.keyboard.createCursorKeys();
 
-
 	platforms = game.add.group()
 	platforms.enableBody = true;
 	ground = platforms.create(0, h - 20, 'platform');
 	ground.scale.setTo(w, 1);
 	ground.body.immovable = true;
 
-	player = game.add.sprite(w / 2, h - 40, 'player');
+	player = game.add.sprite(playerStart, h - 40, 'player');
 	player.anchor.setTo(0.5, 1);
 	game.physics.arcade.enable(player);
 	player.body.gravity.y = 1000;
