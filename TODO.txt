@@ -1,8 +1,13 @@
+GENERAL
 - menu screen
   - sound toggle
   - instructions
   - controls
+  - text animation
 - pause
 - sound effects
-- mobile responsiveness
 - fix platform generation so that there are no overlaps
+
+
+MOBILE
+- mobile responsiveness
