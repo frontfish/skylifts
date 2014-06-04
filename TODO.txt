@@ -1,9 +1,5 @@
 GENERAL
-- menu screen
-  - sound toggle
-  - instructions
-- pause
-- sound effects
+- instructions
 - fix platform generation so that there are no overlaps
 
 MOBILE
