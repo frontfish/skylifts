@@ -1,9 +1,17 @@
 Game.Menu = function (game) { };
 
+var gameStart = false;
+var timer;
+var canMove;
+
 Game.Menu.prototype = {
     create: function () {
+	timer = 0;
+	canMove = true;
+
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	
+	music = game.add.sound('music');
 	cursors = game.input.keyboard.createCursorKeys();
 
 	title = game.add.text(w / 3, h, 'Skylifts', { font: '100px Arial', fill: '#aaaaaa' });
@@ -27,8 +35,17 @@ Game.Menu.prototype = {
 	rightSide.body.immovable = true;
 	rightSide.scale.setTo(20, 1);
 
-	attr = game.add.text(w, h - 18, 'music: "Half Bit" by Kevin Macleod (incompetech.com) ', { font: '12px Arial', fill: '#aaccff' });
-	attr.anchor.setTo(1, 0);
+	if (audio) {
+	    attr = game.add.text(w - 10, h - 18, 'music: "Half Bit" by Kevin Macleod (incompetech.com)', { font: '12px Arial', fill: '#aaccff' });
+	    attr.anchor.setTo(1, 0);
+	    attr.alpha = 0;
+	    game.add.tween(attr).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
+	}
+
+	toggleMusic = game.add.text(w - 20, h - 18, 'Toggle music with DOWN', { font: '12px Arial', fill: '#aaccff' });
+	toggleMusic.anchor.setTo(1, 0);
+	toggleMusic.alpha  = 0;
+//	game.add.tween(toggleMusic).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 
 	if (playerStart < w / 3) {
 	    playerStart = w / 3;
@@ -46,17 +63,16 @@ Game.Menu.prototype = {
 	controls = game.add.text(w / 2, -400, 'Move with LEFT and RIGHT arrow keys\nPress UP to begin', { font: '20px Arial', fill: '#aaaaaa', align: 'center' });
 	controls.anchor.setTo(0.472, 1);
 
-	if (bestScore != 0) {    
- 	    scoreText = game.add.text(w - 10, 10, 'score: ' + score, { font: '20px Arial', fill: '#aaa' });
-	    scoreText.anchor.setTo(1, 0);
-	    scoreText.alpha = 0;
-	    game.add.tween(scoreText).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
-	    bestText = game.add.text(w - 10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#aaa' });
-	    bestText.anchor.setTo(1, 0);
-	    bestText.alpha = 0;
+	scoreText = game.add.text(w - 10, 10, 'score: ' + score, { font: '20px Arial', fill: '#aaa' });
+	scoreText.anchor.setTo(1, 0);
+	scoreText.alpha = 0; 
+	bestText = game.add.text(w - 10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#aaa' });
+	bestText.anchor.setTo(1, 0);
+	bestText.alpha = 0;
+	if (!firstTime) {    
+ 	    game.add.tween(scoreText).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 	    game.add.tween(bestText).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 	}
-
     },
 
     update: function () {
@@ -72,11 +88,18 @@ Game.Menu.prototype = {
 
 	player.frame = 1;
 	player.body.velocity.x = 0;
-	if (game.device.desktop) {
-	    this.desktopControls();
+	if (canMove) {
+	    if (game.device.desktop) {
+		this.desktopControls();
+	    }
+	    else {
+		this.mobileControls();
+	    }
 	}
-	else {
-	    this.mobileControls();
+
+	if (game.time.now - timer > 500 && timer != 0) {
+	    playerStart = player.x;
+	    game.state.start('Play');
 	}
     },
 
@@ -111,11 +134,39 @@ Game.Menu.prototype = {
 	}
     },
 
+    toggleMusic: function () {
+	if (audio) {
+	    audio = false;
+	    game.add.tween(attr).to({ alpha: 0 }, 400, null, true, 0, 0, false);
+	    music.stop();
+	}
+	else {
+	    audio = true;
+	    game.add.tween(attr).to({ alpha: 1 }, 400, null, true, 0, 0, false);
+	    music.play('', 0.4, 0.5, true, false);
+	}
+    },
     
     startGame: function () {
-	playerStart = player.x;
-	music = game.add.sound('music');
-	music.play('', 0.4, 0.5, true, false);
-	game.state.start('Play');
+	canMove = false;
+	marker = Math.floor((player.x - 30) / 20);
+
+	game.add.tween(title).to({ y: -155 }, 500, null, true, 0, 0, false);
+	game.add.tween(by).to({ y: -64 }, 500, null, true, 0, 0, false);
+	game.add.tween(controls).to({ alpha: 0 }, 500, null, true, 0, 0, false);
+	game.add.tween(attr).to({ alpha: 0 }, 500, null, true, 0, 0, false);
+	game.add.tween(ground).to({ width: 80, x: marker * 20 }, 500, null, true, 0, 0, false);
+ 	game.add.tween(scoreText).to({ alpha: 1 }, 300, null, true, 200, 0, false);
+	game.add.tween(bestText).to({ alpha: 1 }, 300, null, true, 200, 0, false);
+
+	if (firstTime) {
+	    firstTime = false;
+	    if (audio) {
+		music.play('', 0.4, 0.5, true, false);	   
+	    }
+	}
+	
+	gameStart = true;
+	timer = game.time.now;
     }
 };

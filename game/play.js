@@ -1,8 +1,6 @@
 Game.Play = function (game) { };
 
 var platformVelocity;
-var startPlatform;
-var marker;
 var num_platforms = 4;
 var variance = 8;
 var increase = 1.008;
@@ -34,14 +32,13 @@ Game.Play.prototype = {
 	platforms = game.add.group();
 	platforms.enableBody = true;
 
-	marker = Math.floor((playerStart - 30) / 20);
 	if (marker < 0) {
 	    marker = 0;
 	}
 	if (marker > 26) {
 	    marker = 26;
 	}
-	var y = 0;
+	var y = 1;
 	this.createPlatform(marker, y, 4);
 	for (var i = 0; i < num_platforms - 1; i++) {
 	    y = y - (Math.floor(Math.random() * 4) + 4);
@@ -72,7 +69,7 @@ Game.Play.prototype = {
 
 	player.frame = 1;
 	player.body.velocity.x = 0;
-	
+
 	if (game.device.desktop) {
 	    this.desktopControls();
 	}
@@ -122,7 +119,8 @@ Game.Play.prototype = {
 
 	    platformVelocity *= increase;
 	}
-	if (player.inAir && player.body.touching.down) {
+
+	if (player.inAir && player.body.touching.down && score > 1) {
 	    player.inAir = false;
 	    game.add.tween(player.scale).to({x: 1, y: 0.8}, 50, null, true, 0, false, false).to({x: 1, y: 1}, 200, null, true, 0, false, false);
 	}

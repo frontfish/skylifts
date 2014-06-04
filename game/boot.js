@@ -7,6 +7,9 @@ var score = 0;
 var bestScore = 0;
 var playerStart = w / 2;
 var orientated = false;
+var audio = true;
+var firstTime = true;
+var marker;
 
 Game.Boot = function (game) { };
 
