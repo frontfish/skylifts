@@ -14,10 +14,6 @@ Game.Menu.prototype = {
 	by.anchor.setTo(0.5, 0);
 	game.add.tween(by).to({ y: 96 }, 500, null, true, 500, 0, false);
 
-//	attr = game.add.text(w, h - 18, 'music: "Half Bit" by Kevin Macleod (incompetech.com) ', { font: '12px Arial', fill: '#aaccff' });
-//	attr.anchor.setTo(1, 0);
-
-
 	platforms = game.add.group()
 	platforms.enableBody = true;
 	ground = platforms.create(0, h + 160, 'platform');
@@ -30,6 +26,9 @@ Game.Menu.prototype = {
 	rightSide = platforms.create(w, h - 40, 'platform');
 	rightSide.body.immovable = true;
 	rightSide.scale.setTo(20, 1);
+
+	attr = game.add.text(w, h - 18, 'music: "Half Bit" by Kevin Macleod (incompetech.com) ', { font: '12px Arial', fill: '#aaccff' });
+	attr.anchor.setTo(1, 0);
 
 	if (playerStart < w / 3) {
 	    playerStart = w / 3;
@@ -50,9 +49,14 @@ Game.Menu.prototype = {
 	if (bestScore != 0) {    
  	    scoreText = game.add.text(w - 10, 10, 'score: ' + score, { font: '20px Arial', fill: '#aaa' });
 	    scoreText.anchor.setTo(1, 0);
+	    scoreText.alpha = 0;
+	    game.add.tween(scoreText).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 	    bestText = game.add.text(w - 10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#aaa' });
 	    bestText.anchor.setTo(1, 0);
+	    bestText.alpha = 0;
+	    game.add.tween(bestText).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 	}
+
     },
 
     update: function () {
