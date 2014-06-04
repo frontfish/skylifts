@@ -6,6 +6,7 @@ var canMove;
 
 Game.Menu.prototype = {
     create: function () {
+	game.stage.backgroundColor = '#acf';
 	timer = 0;
 	canMove = true;
 

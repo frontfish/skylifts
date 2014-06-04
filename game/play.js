@@ -4,6 +4,9 @@ var platformVelocity;
 var num_platforms = 4;
 var variance = 8;
 var increase = 1.008;
+var bgRed;
+var bgGreen;
+var bgBlue;
 
 Game.Play.prototype = {
     create: function () {
@@ -59,6 +62,10 @@ Game.Play.prototype = {
 	scoreText.anchor.setTo(1, 0);
 	bestText = game.add.text(w - 10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#aaa' });
 	bestText.anchor.setTo(1, 0);
+
+	bgRed = 170;
+	bgGreen = 204;
+	bgBlue = 255;
     },
 
     update: function () {
@@ -82,7 +89,6 @@ Game.Play.prototype = {
 	}
 
 	platforms.setAll('body.velocity.y', platformVelocity);
-
 	scoreText.text = 'score: ' + score;
 	bestText.text = 'best: ' + bestScore;
     },
@@ -118,6 +124,8 @@ Game.Play.prototype = {
 	    }
 
 	    platformVelocity *= increase;
+	    
+	    this.updateBackground();
 	}
 
 	if (player.inAir && player.body.touching.down && score > 1) {
@@ -148,6 +156,49 @@ Game.Play.prototype = {
 		player.frame = 2;
 	    }
 	}
+    },
+
+    updateBackground: function () {
+	if (score < 11) {
+	    // #aaccff 5ever
+	}
+	else if (score < 36) {
+	    bgBlue -= 2;
+	    bgGreen += 2;
+	}
+	else if (score < 61) {
+	    bgBlue += 1;
+	    bgRed += 3;
+	    bgGreen -= 2;
+	}
+	else {
+	    if (bgRed > 44) {
+		bgRed -= 10;
+	    }
+	    else {
+		bgRed = 34;
+	    }
+
+	    if (bgGreen > 40) {
+		bgGreen -= 7;
+	    }
+	    else {
+		bgGreen = 34;
+	    }
+
+	    if (bgBlue > 39) {
+		bgBlue -= 5;
+	    }
+	    else {
+		bgBlue = 34;
+	    }
+	}
+
+	color = '#' + bgRed.toString(16) + bgGreen.toString(16) + bgBlue.toString(16);
+	if (color == '#222222') {
+	    this.endGame();
+	}
+	game.stage.backgroundColor = color;
     },
 
     endGame: function () {
