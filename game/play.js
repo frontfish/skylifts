@@ -1,7 +1,6 @@
 Game.Play = function (game) { };
 
 var platformVelocity;
-var score;
 var startPlatform;
 var marker;
 var num_platforms = 4;
@@ -17,10 +16,10 @@ Game.Play.prototype = {
 	sides = game.add.group();
 	sides.enableBody = true;
 	left = sides.create(-20, -20, 'platform');
-	left.scale.setTo(20, h + 2)
+	left.scale.setTo(20, 2 * h);
 	left.body.immovable = true;
 	right = sides.create(w + 1, -20, 'platform');
-	right.scale.setTo(20, h + 2)
+	right.scale.setTo(20, 2 * h);
 	right.body.immovable = true;
 
 	killZones = game.add.group();
@@ -29,7 +28,7 @@ Game.Play.prototype = {
 	topKill.scale.setTo(w, 1);
 	topKill.body.immovable = true;
 	bottomKill = killZones.create(0, h + 30, 'platform');
-	bottomKill.scale.setTo(w, 1)
+	bottomKill.scale.setTo(w, 1);
 	bottomKill.body.immovable = true;
 
 	platforms = game.add.group();
@@ -59,8 +58,10 @@ Game.Play.prototype = {
 	platformVelocity = -100;
 
 	score = 0;	
-	scoreText = game.add.text(10, 10, 'score: ' + score, { font: '20px Arial', fill: '#aaa' });
-	bestText = game.add.text(10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#aaa' });
+ 	scoreText = game.add.text(w - 10, 10, 'score: ' + score, { font: '20px Arial', fill: '#aaa' });
+	scoreText.anchor.setTo(1, 0);
+	bestText = game.add.text(w - 10, 30, 'best: ' + bestScore, { font: '20px Arial', fill: '#aaa' });
+	bestText.anchor.setTo(1, 0);
     },
 
     update: function () {

@@ -3,6 +3,7 @@ Game = {};
 // initialize variables
 var w = 600;
 var h = 400;
+var score = 0;
 var bestScore = 0;
 var playerStart = w / 2;
 var orientated = false;
