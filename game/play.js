@@ -105,7 +105,7 @@ Game.Play.prototype = {
 
     generatePlatform: function (y) {
 	suffix = '';
-	rand = Math.floor(Math.random() * 100);
+	rand = Math.floor(Math.random() * 1000);
 	if (rand == 69) {
 	    suffix = '2';
 	}
@@ -204,9 +204,6 @@ Game.Play.prototype = {
 	}
 
 	color = '#' + bgRed.toString(16) + bgGreen.toString(16) + bgBlue.toString(16);
-	if (color == '#222222') {
-	    this.endGame();
-	}
 	game.stage.backgroundColor = color;
     },
 
