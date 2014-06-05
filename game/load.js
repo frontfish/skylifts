@@ -12,9 +12,12 @@ Game.Load.prototype = {
 	loadingBar.x = w / 2 - (loadingBar.width / 2)
 
 	game.load.setPreloadSprite(loadingBar);
+	loadText = game.add.text(w / 2, h / 3 - 10, 'loading...', { font: '40px Arial', fill: '#aaaaaa' });
+	loadText.anchor.setTo(0.5, 0);
 
 	// load everything
 	game.load.image('platform', 'assets/img/platform.png');
+	game.load.image('platform2', 'assets/img/platform2.png');
 	game.load.spritesheet('player', 'assets/img/player.png', 20, 18, 3);
 
 	game.load.audio('music', 'assets/aud/Half\ Bit.mp3');

@@ -36,7 +36,7 @@ Game.Play.prototype = {
 	platforms.enableBody = true;
 
 	var y = 1;
-	this.createPlatform(marker, y, 4);
+	this.createPlatform(marker, y, 4, '');
 	for (var i = 0; i < num_platforms - 2; i++) {
 	    y = y - (Math.floor(Math.random() * 4) + 4);
 	    this.generatePlatform(y);
@@ -96,19 +96,25 @@ Game.Play.prototype = {
 	bestText.text = 'best: ' + bestScore;
     },
 
-    createPlatform: function (x, y, width) {
-	platform = platforms.create(x * 20, h - y * 20, 'platform');
+    createPlatform: function (x, y, width, suffix) {
+	platform = platforms.create(x * 20, h - y * 20, 'platform' + suffix);
 	platform.scale.setTo(width * 20, 1);
 	platform.body.immovable = true;
 	platform.untouched = true;
     },
 
     generatePlatform: function (y) {
+	suffix = '';
+	rand = Math.floor(Math.random() * 100);
+	if (rand == 69) {
+	    suffix = '2';
+	}
+
 	var x = -1;
 	while (x < 0 || x > (w / 20 - 4)) {
 	    x = variance - Math.floor(Math.random() * (2 * variance + 1)) + marker;
 	}
-	this.createPlatform(x, y, 4);
+	this.createPlatform(x, y, 4, suffix);
 	marker = x;
     },
 
