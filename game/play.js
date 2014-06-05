@@ -25,7 +25,7 @@ Game.Play.prototype = {
 
 	killZones = game.add.group();
 	killZones.enableBody = true;
-	topKill = killZones.create(0, -50, 'platform');
+	topKill = killZones.create(0, -43, 'platform');
 	topKill.scale.setTo(w, 1);
 	topKill.body.immovable = true;
 	bottomKill = killZones.create(0, h + 30, 'platform');
