@@ -8,6 +8,7 @@ var bestScore = 0;
 var playerStart = w / 2;
 var orientated = false;
 var audio = true;
+var music;
 var firstTime = true;
 var marker;
 

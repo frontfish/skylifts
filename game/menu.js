@@ -12,7 +12,6 @@ Game.Menu.prototype = {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	
-	music = game.add.sound('music');
 	cursors = game.input.keyboard.createCursorKeys();
 
 	title = game.add.text(w / 3, h, 'Skylifts', { font: '100px Arial', fill: '#aaaaaa' });
@@ -36,17 +35,17 @@ Game.Menu.prototype = {
 	rightSide.body.immovable = true;
 	rightSide.scale.setTo(20, 1);
 
+	attr = game.add.text(w - 10, h - 18, 'music: "Half Bit" by Kevin Macleod (incompetech.com)', { font: '12px Arial', fill: '#aaccff' });
+	attr.anchor.setTo(1, 0);
+	attr.alpha = 0;
 	if (audio) {
-	    attr = game.add.text(w - 10, h - 18, 'music: "Half Bit" by Kevin Macleod (incompetech.com)', { font: '12px Arial', fill: '#aaccff' });
-	    attr.anchor.setTo(1, 0);
-	    attr.alpha = 0;
 	    game.add.tween(attr).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 	}
 
-	toggleMusic = game.add.text(w - 20, h - 18, 'Toggle music with DOWN', { font: '12px Arial', fill: '#aaccff' });
-	toggleMusic.anchor.setTo(1, 0);
+	toggleMusic = game.add.text(20, h - 18, 'Toggle music with DOWN', { font: '12px Arial', fill: '#aaccff' });
+	toggleMusic.anchor.setTo(0, 0);
 	toggleMusic.alpha  = 0;
-//	game.add.tween(toggleMusic).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
+	game.add.tween(toggleMusic).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 
 	if (playerStart < w / 3) {
 	    playerStart = w / 3;
@@ -74,6 +73,8 @@ Game.Menu.prototype = {
  	    game.add.tween(scoreText).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 	    game.add.tween(bestText).to({ alpha: 1 }, 400, null, true, 1200, 0, false);
 	}
+
+	cursors.down.onDown.add(this.toggleAudio, this);
     },
 
     update: function () {
@@ -135,27 +136,41 @@ Game.Menu.prototype = {
 	}
     },
 
-    toggleMusic: function () {
+    toggleAudio: function () {
 	if (audio) {
 	    audio = false;
 	    game.add.tween(attr).to({ alpha: 0 }, 400, null, true, 0, 0, false);
-	    music.stop();
+	    if (music.isPlaying) {
+		music.pause();
+	    }
 	}
 	else {
 	    audio = true;
 	    game.add.tween(attr).to({ alpha: 1 }, 400, null, true, 0, 0, false);
-	    music.play('', 0.4, 0.5, true, false);
+	    if (music.paused) {
+		music.resume();
+	    }
+	    else {
+		music.play('', 0.4, 0.5, true, false);
+	    }
 	}
     },
     
     startGame: function () {
 	canMove = false;
 	marker = Math.floor((player.x - 30) / 20);
+	if (marker < 0) {
+	    marker = 0;
+	}
+	if (marker > 26) {
+	    marker = 26;
+	}
 
 	game.add.tween(title).to({ y: -155 }, 500, null, true, 0, 0, false);
 	game.add.tween(by).to({ y: -64 }, 500, null, true, 0, 0, false);
 	game.add.tween(controls).to({ alpha: 0 }, 500, null, true, 0, 0, false);
 	game.add.tween(attr).to({ alpha: 0 }, 500, null, true, 0, 0, false);
+	game.add.tween(toggleMusic).to({ alpha: 0 }, 500, null, true, 0, 0, false);
 	game.add.tween(ground).to({ width: 80, x: marker * 20 }, 500, null, true, 0, 0, false);
  	game.add.tween(scoreText).to({ alpha: 1 }, 300, null, true, 200, 0, false);
 	game.add.tween(bestText).to({ alpha: 1 }, 300, null, true, 200, 0, false);

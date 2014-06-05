@@ -35,16 +35,17 @@ Game.Play.prototype = {
 	platforms = game.add.group();
 	platforms.enableBody = true;
 
-	if (marker < 0) {
-	    marker = 0;
-	}
-	if (marker > 26) {
-	    marker = 26;
-	}
 	var y = 1;
 	this.createPlatform(marker, y, 4);
-	for (var i = 0; i < num_platforms - 1; i++) {
+	for (var i = 0; i < num_platforms - 2; i++) {
 	    y = y - (Math.floor(Math.random() * 4) + 4);
+	    this.generatePlatform(y);
+	}
+	y = y - (Math.floor(Math.random() * 4) + 4);
+	if (y < -17) {
+	    this.generatePlatform(-17);
+	}
+	else {
 	    this.generatePlatform(y);
 	}
 
@@ -66,6 +67,8 @@ Game.Play.prototype = {
 	bgRed = 170;
 	bgGreen = 204;
 	bgBlue = 255;
+
+	cursors.down.onDown.add(Game.Menu.prototype.toggleAudio, this);
     },
 
     update: function () {
@@ -172,22 +175,22 @@ Game.Play.prototype = {
 	    bgGreen -= 2;
 	}
 	else {
-	    if (bgRed > 44) {
-		bgRed -= 10;
+	    if (bgRed > 35) {
+		bgRed -= 2;
 	    }
 	    else {
 		bgRed = 34;
 	    }
 
-	    if (bgGreen > 40) {
-		bgGreen -= 7;
+	    if (bgGreen > 35) {
+		bgGreen -= 2;
 	    }
 	    else {
 		bgGreen = 34;
 	    }
 
-	    if (bgBlue > 39) {
-		bgBlue -= 5;
+	    if (bgBlue > 35) {
+		bgBlue -= 2;
 	    }
 	    else {
 		bgBlue = 34;
