@@ -1,5 +1,4 @@
 GENERAL
-- instructions
 - fix platform generation so that there are no overlaps
 - music toggle
 - landing sound effect
