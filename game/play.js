@@ -81,10 +81,10 @@ Game.Play.prototype = {
 	player.body.velocity.x = 0;
 
 	if (game.device.desktop) {
-	    this.desktopControls();
+	    Game.Menu.prototype.desktopControls();
 	}
 	else {
-	    this.mobileControls();
+	    Game.Menu.prototype.mobileControls();
 	}
 
 	if (player.body.velocity.y != platformVelocity) {
@@ -143,30 +143,6 @@ Game.Play.prototype = {
 	}
     },
     
-    desktopControls: function () {
-	if (cursors.left.isDown) {
-	    player.body.velocity.x = -150;
-	    player.frame = 0;
-	}
-	else if (cursors.right.isDown) {
-	    player.body.velocity.x = 150;
-	    player.frame = 2;
-	}
-    },
-
-    mobileControls: function () {
-	if (game.input.activePointer.isDown) {
-	    if (game.input.x < (w / 3)) {
-		player.body.velocity.x = -150;
-		player.frame = 0;
-	    }
-	    else if (game.input.x > (w * 2 / 3)) {
-		player.body.velocity.x = 150;
-		player.frame = 2;
-	    }
-	}
-    },
-
     updateBackground: function () {
 	if (score < 11) {
 	    // #aaccff 5ever

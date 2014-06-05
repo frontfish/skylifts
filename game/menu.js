@@ -1,7 +1,6 @@
 Game.Menu = function (game) { };
 
 var gameStart = false;
-var timer;
 var canMove;
 
 Game.Menu.prototype = {
@@ -115,7 +114,7 @@ Game.Menu.prototype = {
 	    player.frame = 2;
 	}
 
-	if (cursors.up.isDown) {
+	if (cursors.up.isDown && timer == 0) {
 	    this.startGame();
 	}
     },
@@ -130,7 +129,7 @@ Game.Menu.prototype = {
 		player.body.velocity.x = 150;
 		player.frame = 2;
 	    }
-	    else {
+	    else if (timer == 0) {
 		this.startGame();
 	    }
 	}
