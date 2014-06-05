@@ -1,7 +1,7 @@
 Game.Play = function (game) { };
 
 var platformVelocity;
-var num_platforms = 4;
+var num_platforms = 150;
 var variance = 8;
 var increase = 1.008;
 var bgRed;
@@ -37,15 +37,8 @@ Game.Play.prototype = {
 
 	var y = 1;
 	this.createPlatform(marker, y, 4, '');
-	for (var i = 0; i < num_platforms - 2; i++) {
+	for (var i = 0; i < num_platforms - 1; i++) {
 	    y = y - (Math.floor(Math.random() * 4) + 4);
-	    this.generatePlatform(y);
-	}
-	y = y - (Math.floor(Math.random() * 4) + 4);
-	if (y < -17) {
-	    this.generatePlatform(-17);
-	}
-	else {
 	    this.generatePlatform(y);
 	}
 
@@ -120,7 +113,6 @@ Game.Play.prototype = {
 
     deletePlatform: function (topKill, platform) {
 	platform.destroy();
-	this.generatePlatform(0);
     },
 
     hitPlatform: function (player, platform) {
