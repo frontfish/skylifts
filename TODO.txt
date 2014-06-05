@@ -1,9 +1,6 @@
 GENERAL
-- landing sound effect
 - clean up code
-- deal with top death thing
 - have squishiness vary by fall
-- Easter Eggs
 
 MOBILE
 - mobile responsiveness
