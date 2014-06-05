@@ -1,6 +1,5 @@
 GENERAL
 - clean up code
-- have squishiness vary by fall
 
 MOBILE
 - mobile responsiveness
